@@ -2,31 +2,31 @@
  * Priority Queue 
  * 
  * @author Aygerim 
- * @reference: geeksforgeeks, 
+ * @reference: geeksforgeeks
  * Strategy: 
  * 
  * Runtime: 
  *      insert: O(log(n)) 
  *      removeRoot(min or max): O(log(n))
- *      findMin: O(1);
+ *      findMax: O(1);
  * HeapSort Runtime: O(n(log(n)))
  * 
  */
 var BinaryHeap = function() { 
     this.heap = []; 
-    this.compare = (i, j) => { return i < j}; 
+    this.compare = (i, j) => { return i > j}; 
     this.swap = (i, j) => { 
         var temp = this.heap[i]; 
         this.heap[i] = this.heap[j];
         this.heap[j] = temp;
     }
-    // this compare function will result in minHeap
-    this.findMin = (k) => { 
+    // this compare function will result in maxHeap
+    this.findMax = (k) => { 
         // get the children of the current k node 
         let i = k * 2 + 1; 
         let j = k * 2 + 2; 
         if (this.heap[i] && this.heap[j]) { 
-            return this.heap[i] < this.heap[j] ? i : j; 
+            return this.heap[i] > this.heap[j] ? i : j; 
         }
         if (i === this.heap.length - 1) { 
             return i; 
@@ -44,6 +44,7 @@ BinaryHeap.prototype.insert = function(value) {
     this.heap.push(value);
     while (j !== 0) { 
         i = j; 
+        // parent
         j = Math.floor((i - 1) / 2); 
         // max heap
         if (this.compare(this.heap[i], this.heap[j])) {
@@ -52,7 +53,6 @@ BinaryHeap.prototype.insert = function(value) {
             break;
         }
     }
-    // console.log('after insert: ', this.heap)
 }
 
 BinaryHeap.prototype.removeRoot = function() { 
@@ -63,11 +63,11 @@ BinaryHeap.prototype.removeRoot = function() {
     var j;  
     while (i < this.heap.length) {
         j = i; 
-        i = this.findMin(j);
+        i = this.findMax(j);
         if (!i){ 
             break;
         }
-        if (this.compare(this.heap[i], this.heap[j])) { 
+        if (this.compare(this.heap[j], this.heap[i])) { 
             this.swap(i, j);
         }
     }
@@ -90,4 +90,4 @@ var heapsort = (input) => {
     }
 }
 
-heapsort([2,3,1,4]);
+heapsort([0, -1, 10, 12, 8]);
