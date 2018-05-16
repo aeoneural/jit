@@ -28,7 +28,28 @@ strategies:
                   4 -> 3 
 */
 
-var 
+var findDuplicateBinarySearch = function(nums) { 
+    var low = 1; 
+    var high = nums.length - 1; 
+
+    while (low < high) { 
+        var mid = Math.floor((low + high) / 2);
+        var count = 0;
+        for (var i = 0; i < nums.length; i++) { 
+            if (nums[i] <= mid) { 
+                count++
+            }
+            
+        }
+        if (count <= mid) {
+            low = mid + 1;
+        } else {
+            high = mid;
+        }
+        
+    }
+    return low;
+}
 var findDuplicateLinkedListCycle = function(nums) {
     var n = nums.length; 
     var slow = n; 
