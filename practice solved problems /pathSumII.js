@@ -13,17 +13,38 @@ var pathSumI = function(root, sum){
     }
     return false;
 }
+var pathSumII = function(root, sum) { 
+    var all = [];
+    var each = [];
+    var recurse = function(root, sum, path, allPaths) { 
+        
+        if (root) { 
+            if (root.left === null && root.right === null && root.val === sum) {
+                path.push(root.val);
+                allPaths.push(path.slice());
+                path.pop();
+            } else { 
+                path.push(root.val);
+                recurse(root.left, sum - root.val, path, allPaths);
+                recurse(root.right, sum - root.val, path, allPaths);
+                path.pop();
+            }     
+        }
+    }
+    recurse(root, sum, each, all);
+    return all
+}
 var tree = { 
     val: 3, 
     left: { 
-        val: 2, 
+        val: 1, 
         left: null,  
         right: null
     }, 
     right: { 
         val: 2, 
         left: { 
-            val: 0, 
+            val: -1, 
             left: null, 
             right: null
         }, 
