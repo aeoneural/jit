@@ -27,3 +27,45 @@ strategies:
                   ˇ    |
                   4 -> 3 
 */
+var findDuplicateBinarySearch = function(nums) {
+    var n = nums.length; 
+    var slow = n; 
+    var fast = n; 
+    do { 
+        slow = nums[slow - 1];
+        fast = nums[nums[fast - 1] - 1];   
+    } while (slow !== fast)
+    slow = n; 
+    while (slow !== fast) { 
+
+        slow = nums[slow - 1];
+        fast = nums[fast - 1];
+    }
+    
+    return slow;
+    // if ( n > 1) { 
+
+    //     var slow = nums[0];
+    //     var fast = nums[nums[0]];
+    //     while (slow !== fast) { 
+    //         slow = nums[slow];
+    //         fast = nums[nums[fast]];
+    //          console.log('slow: ', slow);
+    //          console.log('fast: ', fast);
+    //     }
+    //     console.log('-------');
+    //     console.log('slow: ', slow);
+    //     console.log('fast: ', fast);
+
+    //     fast = 0; 
+    //     while (fast !== slow) { 
+    //         fast = nums[fast];
+    //         slow = nums[slow];
+    //     }
+    //     return slow
+    // }
+}
+
+var test = [2, 5, 1, 1, 4, 3]
+console.log("hello");
+console.log(findDuplicateBinarySearch(test));
