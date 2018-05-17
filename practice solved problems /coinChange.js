@@ -9,7 +9,7 @@ var coinChange = function(amount, coins) {
     return combinations[amount];
 }
 
-var coinChangeRecursive = function(amount, coins) { 
+var coinChangeSecond = function(amount, coins) { 
     var waysOfDoingNCoins = [];
 
     for (var i = 0; i <= amount; i++) { 
@@ -25,4 +25,4 @@ var coinChangeRecursive = function(amount, coins) {
     })
     return waysOfDoingNCoins[amount];
 }
-console.log(coinChangeRecursive(5, [1, 2, 5]))
+console.log(coinChangeSecond(5, [1, 2, 5]))
