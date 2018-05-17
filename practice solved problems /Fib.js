@@ -1,11 +1,31 @@
-var fib = function(num) { 
+var fib = function() { 
+    this.memo = {}
     
-    if (num < 2) return 1; 
-    // console.log('calling: ', num - 1, ' and ', num - 2);
-    return fib(num - 1) + fib(num - 2);
 }
+
+fib.prototype.findNthFib = function(n) { 
+    if (n < 0) { 
+       throw new Error('index was negative'); 
+    }
+
+    //base case: 0 or 1 
+    else if (n === 0 || n === 1) return n; 
+
+    // see if we've calculated it already 
+    if (this.memo.hasOwnProperty(n)) { 
+        return this.memo[n];
+    }
+
+    var result = this.findNthFib(n - 1) + this.findNthFib(n - 2)
+
+    // memoize
+    this.memo[n] = result;
+    return result
+}
+var test = new fib();
 for (var i = 0; i < 7; i++) { 
-    console.log(fib(i));
+    
+    console.log(test.findNthFib(i));
 }
 
 /* 
