@@ -22,12 +22,31 @@ fib.prototype.findNthFib = function(n) {
     this.memo[n] = result;
     return result
 }
-var test = new fib();
-for (var i = 0; i < 7; i++) { 
-    
-    console.log(test.findNthFib(i));
+
+
+var fibTwoPointer = function(n) { 
+    if (n < 0) throw new Error("Index was negative");
+    else if (n === 0 || n === 1) { 
+        return n;
+    }
+
+    var prevPrev = 0; 
+    var prev = 1; 
+    var curr; 
+
+    for(var i = 1; i < n; i++) {
+        curr = prev + prevPrev;
+        prevPrev = prev;
+        prev = curr ;
+    }
+    return curr;
 }
 
+var test = new fib();
+for (var i = 0; i < 7; i++) {
+
+    console.log(fibTwoPointer(i));
+}
 /* 
 0   1  
 1   1
