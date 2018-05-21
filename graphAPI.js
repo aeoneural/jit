@@ -65,8 +65,8 @@ Graph.prototype._traverseDFS = function (vertex, visited, fn) {
         fn(currentNode)
         visited[currentNode] = true;
         for (var i = 0; i < this.edges[currentNode].length; i++) { 
-            if (visited[this.edges[currentNode][i]] !== true) { 
-                visited[this.edges[currentNode][i]] = true;
+            if (visited[this.edges[currentNode][i]] !== true || stack.indexOf(this.edges[currentNode][i]) !== -1) { 
+                // visited[this.edges[currentNode][i]] = true;
                 stack.push(this.edges[currentNode][i]);
             }
         }
