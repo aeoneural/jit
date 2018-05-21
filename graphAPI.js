@@ -48,14 +48,27 @@ Graph.prototype.traverseDFS = function (vertex, fn) {
     console.log('the vertex was not found');
 }
 Graph.prototype._traverseDFS = function (vertex, visited, fn) {
-    visited[vertex] = true;
-    // fn(vertex);
-    if (this.edges[vertex] !== undefined) fn(vertex);
+    // visited[vertex] = true;
+    // // fn(vertex);
+    // if (this.edges[vertex] !== undefined) fn(vertex);
 
-    for (var i = 0; i < this.edges[vertex].length; i++) {
+    // for (var i = 0; i < this.edges[vertex].length; i++) {
         
-        if (!visited[this.edges[vertex][i]]) { 
-            this._traverseDFS(this.edges[vertex][i], visited, fn);
+    //     if (!visited[this.edges[vertex][i]]) { 
+    //         this._traverseDFS(this.edges[vertex][i], visited, fn);
+    //     }
+    // }
+    var stack = [vertex];
+    
+    while (stack.length > 0) { 
+        var currentNode = stack.pop(); 
+        fn(currentNode)
+        visited[currentNode] = true;
+        for (var i = 0; i < this.edges[currentNode].length; i++) { 
+            if (visited[this.edges[currentNode][i]] !== true) { 
+                visited[this.edges[currentNode][i]] = true;
+                stack.push(this.edges[currentNode][i]);
+            }
         }
     }
 
