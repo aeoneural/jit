@@ -22,6 +22,7 @@ Graph.prototype.removeVertex = function(vertex) {
 
 }
 Graph.prototype.addEdges = function(vertex1, vertex2) { 
+
     this.edges[vertex1].push(vertex2);
     this.edges[vertex2].push(vertex1);
     this.numberOfEdges++;
@@ -38,6 +39,35 @@ Graph.prototype.removeEdges = function(vertex1, vertex2) {
         this.edges[vertex2].splice(index2, 1);
     }
 }
+Graph.prototype.traverseBFS = function(vertex, fn) {
+    if (this.vertices.indexOf(vertex) === -1) { 
+        console.log('vertex not found');
+    } 
+    var queue = [];
+    queue.push(vertex);
+    var visited = [];
+    visited[vertex] = true;
+    var current = 0;
+    var end = 0;  
+
+    while (current <= end) { 
+        // console.log('queue: ', queue);
+        var currentNode = queue[current++];
+        fn(currentNode)
+        var neighborVertices = this.edges[currentNode];
+        for (var i = 0; i < neighborVertices.length; i++) {
+            var element = neighborVertices[i];
+            
+            if (!visited[element]) {
+                visited[element] = true;
+                queue.push(element);
+                end++;
+            }
+        }
+    }
+
+}
+
 var test = new Graph(); 
 console.log(test);
 test.addVertex(1);
@@ -45,6 +75,9 @@ test.addVertex(2);
 test.addVertex(3);
 test.addEdges(1, 3)
 test.addEdges(2, 3)
-test.removeEdges(1, 3)
+test.addVertex(4)
+test.addEdges(3, 4)
+test.addEdges(2, 4);
 console.log(test);
+test.traverseBFS(2, function(value){console.log(value)});
 
