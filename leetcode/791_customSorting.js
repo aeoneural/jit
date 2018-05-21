@@ -21,13 +21,11 @@ var customSortString = function(S, T) {
             sortedMap[S[i]] = 1;
         }
     }
-    console.log('sorted map: ', sortedMap);
     for (var i = 0; i < T.length; i++) { 
         if (sortedMap[T[i]] === undefined) { 
             unsorted += T[i];
         }
     }
-    console.log(sorted + unsorted)
     return sorted + unsorted
 };
 

@@ -6,11 +6,8 @@ var detectCycle = function(head) {
     var fast = head; 
     var cycle = false;
     do { 
-        if (slow !== fast) { 
-            break;
-        }
         slow = slow.next; 
-        fast = fast.next.next
+        fast = fast.next.next;
     } while (slow !== fast)
     if (slow !== fast) { 
         return null;

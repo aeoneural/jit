@@ -13,25 +13,21 @@ var robotPath = function(grid, i, j) {
         visited.push(arr);
     }
 
-
     var visitedCell = function(row, col, grid) { 
         return grid[row][col] === 1
     }
+
     var isObstacle = function(row, col, grid) { 
         return grid[row][col] === '1';  
     }
-    var traverse = function(grid, visited, row, col, path) { 
-        // console.log('row: ', row);
 
+    var traverse = function(grid, visited, row, col, path) { 
         if (row === 0 || col === 0 || row === grid.length - 1 || col === grid[0].length - 1) { 
             path.push([row, col]);
-            // console.log('row: ', row);
-            // console.log('col: ', col);
-            // console.log('path: ', path);
             path.pop();
             return;
         }
-        
+
         visited[row][col] = 1;
         path.push([row, col]);
         // console.log('visited: ', visited);
@@ -51,9 +47,9 @@ var robotPath = function(grid, i, j) {
     }
     return traverse(grid, visited, i, j, []);
 }
-var arr = [ ['1', '1', '1', '1', '0'],
-            ['1', '1', '0', '1', '0'],
-            ['1', '1', '0', '0', '0'],
+var arr = [ ['0', '0', '0', '0', '0'],
+            ['0', '0', '0', '0', '0'],
+            ['0', '0', '0', '0', '0'],
             ['0', '0', '0', '0', '0'] ]
 
 var test = robotPath(arr, 2, 2)

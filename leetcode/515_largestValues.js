@@ -1,4 +1,5 @@
 var largestValues = function(root) {
+
     if (!root) { return; };
     var finalResult = [];
     var queue = [root];
@@ -66,5 +67,6 @@ var tree = {
         }
     }
 }
+console.log(tree);
 var test = largestValuesRec(tree);
 console.log(test);
