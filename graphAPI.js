@@ -1,7 +1,7 @@
 var Graph = function() { 
     this.vertices = []
     this.edges = []
-    this.numberOfEdges = []
+    this.numberOfEdges = 0
 }
 
 Graph.prototype.addVertex = function(vertex) { 
@@ -33,10 +33,8 @@ Graph.prototype.removeEdges = function(vertex1, vertex2) {
 
     if (vertex1 !== -1) { 
         this.edges[vertex1].splice(index1, 1);
-        this.numberOfEdges--;
-    }
-    if (vertex2 !== -1) { 
         this.edges[vertex2].splice(index2, 1);
+        this.numberOfEdges--;
     }
 }
 
@@ -65,8 +63,8 @@ Graph.prototype._traverseDFS = function (vertex, visited, fn) {
         fn(currentNode)
         visited[currentNode] = true;
         for (var i = 0; i < this.edges[currentNode].length; i++) { 
-            if (visited[this.edges[currentNode][i]] !== true || stack.indexOf(this.edges[currentNode][i]) !== -1) { 
-                // visited[this.edges[currentNode][i]] = true;
+            if (visited[this.edges[currentNode][i]] !== true) { 
+                visited[this.edges[currentNode][i]] = true;
                 stack.push(this.edges[currentNode][i]);
             }
         }
@@ -83,24 +81,43 @@ Graph.prototype.traverseBFS = function(vertex, fn) {
     var visited = [];
     visited[vertex] = true;
     var current = 0;
-    var end = 0;  
 
-    while (current <= end) { 
+    while (current < queue.length) { 
         // console.log('queue: ', queue);
         var currentNode = queue[current++];
         fn(currentNode)
         var neighborVertices = this.edges[currentNode];
         for (var i = 0; i < neighborVertices.length; i++) {
-            var element = neighborVertices[i];
-            
+            var element = neighborVertices[i];  
             if (!visited[element]) {
                 visited[element] = true;
                 queue.push(element);
-                end++;
             }
         }
     }
 
+}
+
+Graph.prototype.findCycleInDirected = function() { 
+    var stack = [this.vertices[0]];
+    var visited = [];
+    var current = 0; 
+    var end = 0
+    while (current <= end) {
+        var currentNode = stack[current++];
+        visited[currentNode] = 1;
+
+        for (var i = 0; i < this.edges[currentNode].length; i++) {
+            visited[this.edges[currentNode][i]] = 1
+            stack.push(this.edges[currentNode][i])
+            if (stack.indexOf(this.edges[currentNode][i]) !== stack.lastIndexOf(this.edges[currentNode][i])){
+                
+                return true;
+            }
+            
+        }
+    } 
+    return false; 
 }
 
 
@@ -110,7 +127,7 @@ console.log(test);
 test.addVertex(1);
 test.addVertex(2);
 test.addVertex(3);
-test.addEdges(1, 3)
+test.addEdges(1, 2)
 test.addEdges(2, 3)
 test.addVertex(4)
 test.addEdges(3, 4)
@@ -123,4 +140,8 @@ test.traverseBFS(2, function(value){console.log(value)});
 console.log();
 console.log('dfs');
 test.traverseDFS(2, function(value){console.log(value)})
+console.log(test.findCycleInDirected())
 
+module.exports = { 
+    'graph': Graph
+}
