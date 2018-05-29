@@ -23,15 +23,18 @@ var rotateMatrix = function(matrix) {
 var rotateMatrixInPlace = function(matrix) { 
     var totalLayers = matrix.length / 2;
     var len = matrix.length - 1; 
-    for (var i = 0; i < len; i++) { 
-        var temp = matrix[0][i];
-        console.log('temp: ', temp);
-        matrix[0][i] = matrix[len - i][0];
-        matrix[len - i][0] = matrix[len][len - i];
-        matrix[len][len - i] = matrix[i][len];
-        matrix[i][len] = temp;
+    for (var j = 0; j <= totalLayers; j++) {
+         
+        for (var i = j; i < len - j; i++) {
+            var temp = matrix[j][i];
+            console.log('temp: ', temp);
+            matrix[j][i] = matrix[len - i][j];
+            matrix[len - i][j] = matrix[len - j][len - i];
+            matrix[len - j][len - i] = matrix[i][len - j];
+            matrix[i][len - j] = temp;
+        }
     }
-    
+
     return matrix;
 }
 
@@ -41,5 +44,5 @@ var test = [
     [9, 10, 11, 12], 
     [13, 14, 15, 16]
 ]
-// console.log(rotateMatrix(test))
+console.log(rotateMatrix(test))
 console.log(rotateMatrixInPlace(test));
